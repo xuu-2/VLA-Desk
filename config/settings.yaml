@@ -1,0 +1,28 @@
+project:
+  name: VLA-Desk
+  mode: simulation
+
+perception:
+  detector: yolo
+  model_path: models/yolov8n.pt
+  confidence_threshold: 0.5
+  image_size: 640
+
+language:
+  provider: openai
+  model_name: gpt-4o-mini
+  api_key: YOUR_API_KEY
+
+planning:
+  strategy: rule_based
+  safe_height: 0.25
+  grasp_offset: 0.02
+
+simulation:
+  robot: franka_panda
+  gui: true
+  time_step: 0.004166
+
+runtime:
+  use_camera: false
+  image_path: assets/sample_desk.jpg
