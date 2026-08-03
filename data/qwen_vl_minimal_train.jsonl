@@ -1,0 +1,6 @@
+{"image": "../desk.jpg", "prompt": "描述一下这张图片里有什么物体？", "response": "桌面上有一个木制桌子，上面放着一些物品。"}
+{"image": "../desk.jpg", "prompt": "请识别桌面上的主要物体，并用 JSON 返回。", "response": "{\"type\":\"detection\",\"objects\":[{\"label\":\"cup\",\"confidence\":0.92,\"bbox\":[120,120,180,220],\"center\":[150,170]},{\"label\":\"bottle\",\"confidence\":0.88,\"bbox\":[250,100,300,250],\"center\":[275,175]},{\"label\":\"phone\",\"confidence\":0.95,\"bbox\":[400,260,460,340],\"center\":[430,300]}]}"}
+{"image": "../desk.jpg", "prompt": "把杯子移到左边。", "response": "{\"type\":\"task\",\"action\":\"move\",\"target\":\"cup\",\"destination\":\"left\"}"}
+{"image": "../desk.jpg", "prompt": "拿起杯子。", "response": "{\"type\":\"task\",\"action\":\"pick\",\"target\":\"cup\"}"}
+{"image": "../desk.jpg", "prompt": "把瓶子放到中间。", "response": "{\"type\":\"task\",\"action\":\"place\",\"target\":\"bottle\",\"destination\":\"center\"}"}
+{"image": "../desk.jpg", "prompt": "观察一下手机在哪里。", "response": "{\"type\":\"task\",\"action\":\"inspect\",\"target\":\"phone\"}"}

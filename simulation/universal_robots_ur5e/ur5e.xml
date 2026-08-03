@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mujoco model="ur5e_table_cup_scene">
+  <compiler angle="radian" coordinate="local"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
+  <default>
+    <joint damping="1" armature="0.01" limited="true"/>
+    <geom friction="1 0.5 0.5" rgba="0.8 0.8 0.8 1"/>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 2.5" dir="0 0 -1" diffuse="0.8 0.8 0.8" specular="0.2 0.2 0.2"/>
+    <camera name="front" pos="1.2 -1.2 1.4" xyaxes="0 -1 0 0 0 1"/>
+    <camera name="side" pos="-1.0 1.5 1.5" xyaxes="1 0 0 0 0 1"/>
+    <camera name="top" pos="0.1 0 2.2" xyaxes="1 0 0 0 1 0"/>
+
+    <geom name="floor" type="plane" size="2 2 0.1" pos="0 0 0" rgba="0.15 0.15 0.15 1"/>
+
+    <!-- 桌子（桌面顶面 z = 0.76 + 0.02 = 0.78） -->
+    <body name="table" pos="0.6 0 0">
+      <geom name="table_top" type="box" size="0.4 0.35 0.02" pos="0 0 0.76" rgba="0.55 0.35 0.2 1" contype="1" conaffinity="1"/>
+      <geom name="table_leg1" type="box" size="0.03 0.03 0.38" pos="0.35 0.3 0.38" rgba="0.45 0.25 0.15 1"/>
+      <geom name="table_leg2" type="box" size="0.03 0.03 0.38" pos="0.35 -0.3 0.38" rgba="0.45 0.25 0.15 1"/>
+      <geom name="table_leg3" type="box" size="0.03 0.03 0.38" pos="-0.35 0.3 0.38" rgba="0.45 0.25 0.15 1"/>
+      <geom name="table_leg4" type="box" size="0.03 0.03 0.38" pos="-0.35 -0.3 0.38" rgba="0.45 0.25 0.15 1"/>
+    </body>
+
+    <!-- 杯子（桌面 z≈0.78，杯子高 0.06，中心 0.78+0.06=0.84） -->
+    <body name="cup" pos="0.55 0.03 0.84">
+      <joint name="cup_free" type="free"/>
+      <inertial pos="0 0 0" mass="0.3" diaginertia="0.0005 0.0005 0.0005"/>
+      <geom name="cup_geom" type="cylinder" size="0.03 0.06" rgba="0.9 0.8 0.2 1" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- UR5e 机械臂：底座放在桌面上（z=0.78），整条臂朝上展开 -->
+    <body name="ur5e_base" pos="0.28 0 0.83">
+      <inertial pos="0 0 0" mass="4" diaginertia="0.03 0.03 0.04"/>
+      <geom name="base_geom" type="cylinder" size="0.08 0.05" rgba="0.3 0.3 0.3 1"/>
+
+      <body name="shoulder_link" pos="0 0 0.10">
+        <joint name="shoulder_pan_joint" type="hinge" axis="0 0 1" range="-6.28 6.28"/>
+        <geom name="shoulder_geom" type="capsule" fromto="0 0 0 0 0 0.14" size="0.06" rgba="0.25 0.25 0.25 1"/>
+
+        <body name="upper_arm_link" pos="0 0 0.14">
+          <joint name="shoulder_lift_joint" type="hinge" axis="0 1 0" range="-6.28 6.28"/>
+          <geom name="upper_arm_geom" type="capsule" fromto="0 0 0 0 0 0.42" size="0.055" rgba="0.25 0.25 0.25 1"/>
+
+          <body name="forearm_link" pos="0 0.135 0.42">
+            <joint name="elbow_joint" type="hinge" axis="0 1 0" range="-3.14 3.14"/>
+            <geom name="forearm_geom" type="capsule" fromto="0 0 0 0 0 0.39" size="0.045" rgba="0.25 0.25 0.25 1"/>
+
+            <body name="wrist_1_link" pos="0 0.092 0.39">
+              <joint name="wrist_1_joint" type="hinge" axis="0 1 0" range="-6.28 6.28"/>
+              <geom name="wrist1_geom" type="cylinder" size="0.04 0.05" rgba="0.35 0.35 0.35 1"/>
+
+              <body name="wrist_2_link" pos="0 0.092 0">
+                <joint name="wrist_2_joint" type="hinge" axis="0 0 1" range="-6.28 6.28"/>
+                <geom name="wrist2_geom" type="cylinder" size="0.035 0.04" rgba="0.35 0.35 0.35 1"/>
+
+                <body name="wrist_3_link" pos="0 0 0.092">
+                  <joint name="wrist_3_joint" type="hinge" axis="0 1 0" range="-6.28 6.28"/>
+                  <geom name="wrist3_geom" type="cylinder" size="0.03 0.03" rgba="0.4 0.4 0.4 1"/>
+                  <site name="attachment_site" pos="0 0 0.06" size="0.008" rgba="1 0 0 1"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position joint="shoulder_pan_joint" kp="80"/>
+    <position joint="shoulder_lift_joint" kp="80"/>
+    <position joint="elbow_joint" kp="70"/>
+    <position joint="wrist_1_joint" kp="50"/>
+    <position joint="wrist_2_joint" kp="50"/>
+    <position joint="wrist_3_joint" kp="30"/>
+  </actuator>
+</mujoco>

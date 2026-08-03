@@ -1,39 +1,38 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
-*.egg-info/
-dist/
-build/
-*.egg
+*.pyo
 
-# Virtual Environment
-venv/
-env/
-ENV/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Environment Variables
+# Environments and secrets
 .env
+.env.*
+!.env.example
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Project Specific
-test_image.jpg
-output_*.jpg
-*.mp4
+# Local models and weights
 models/
 *.pt
+*.onnx
+*.engine
+*.safetensors
 
-# Logs
+# Runtime and generated files
 *.log
+outputs/
+runs/
+checkpoints/
+*.mjb
+*.whl
+*.mp4
+*.obj
+MJMODEL.TXT
+MUJOCO_LOG.TXT
+temp_*.jpg
+test_image.jpg
+desk.jpg
+SimSun.ttf
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
