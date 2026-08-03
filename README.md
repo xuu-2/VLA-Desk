@@ -89,7 +89,7 @@ VLA-Desk 是一个完整的视觉-语言-动作(Vision-Language-Action)机器人
 ---
 
 ### 仿真执行截图
-PyBullet 环境中 UR5 机械臂执行抓取动作。
+MuJoCo 环境中 UR5e 机械臂执行桌面抓取动作。
 
 ![仿真执行](images/simulation_demo.png)
 
@@ -216,9 +216,11 @@ VLA-Desk/
 │   ├── __init__.py
 │   └── yolo_detector.py        # YOLO 检测器
 │
-├── language/                   # 语言模块
-│   ├── __init__.py
-│   └── llm_planner.py          # 指令解析器
+├── vl/                         # Qwen-VL 与模型工具
+│   ├── qwen_vl.py              # Qwen-VL 指令解析
+│   ├── quantize.py             # 量化工具
+│   ├── prune.py                # 剪枝工具
+│   └── finetune.py             # 微调工具
 │
 ├── planning/                   # 规划模块
 │   ├── __init__.py
